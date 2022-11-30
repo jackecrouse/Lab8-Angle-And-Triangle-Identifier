@@ -58,6 +58,22 @@ public class AngleStructureComparator implements Comparator<Angle>
 	@Override
 	public int compare(Angle left, Angle right)
 	{
-        // TODO
+        //return Integer.MAX_VALUE if structurally incomparable  
+		//make sure center point is the same
+		// make sure both rays are colinear
+		if(!(left.getRay1().isCollinearWith(right.getRay1()) && 
+		   left.getRay2().isCollinearWith(right.getRay2()) &&
+		   left.getVertex().equals(right.getVertex()))) {
+			return Integer.MAX_VALUE;
+		}
+		//return 1 if both rays for left are larger then those of right
+		if(left.getRay1().HasSubSegment(right.getRay1()) && left.getRay2().HasSubSegment(right.getRay2())) {
+			return 1;
+		}
+		//return -1 if both rays for the right are larger then those of the left
+		if(right.getRay1().HasSubSegment(left.getRay1()) && right.getRay2().HasSubSegment(left.getRay2())) {
+			return -1;
+		}
+		return 0;
 	}
 }
