@@ -149,16 +149,57 @@ public class Segment extends GeometricObject
 	 *             ----------------           ---------
 	 * Note: the segment MAY share an endpoint
 	 */
+	/*
+	 * @param that -- a segment
+	 * @return true if the segments coincide, but do not overlap:
+	 *                    this                  that
+	 *             ----------------           ---------
+	 * Note: the segment MAY share an endpoint
+	 */
 	public boolean coincideWithoutOverlap(Segment that)
 	{
-		if (!isCollinearWith(that)) return false;
-
-		// Check the endpoints of @that 
-		if (this.pointLiesBetweenEndpoints(that.getPoint1())) return false;
-
-		if (this.pointLiesBetweenEndpoints(that.getPoint2())) return false;
-
+		//check if identical
+		if (this.equals(that)) return false;
+		//points should have same slope/y-intercept
+		if (!(collinearWithGap(that))) return false;
+		
+		//check if either of that segment's endpoints lie between this segment's endpoints OR if endpoints are equal
+		//if that endpoint lies between this segments endpoints AND is not an endpoint return false;
+		if (GeometryUtilities.between(that.getPoint1(), _point1, _point2) && 
+				(!(that.getPoint1().equals(_point1) || that.getPoint1().equals(_point2)))) return false;
+		if (GeometryUtilities.between(that.getPoint2(), _point1, _point2) &&
+				(!(that.getPoint2().equals(_point1) || that.getPoint2().equals(_point2)))) return false;
+		
 		return true;
+	}
+	
+	/**
+	 * Checks whether two segments are collinear, but also factors in whether there is a gap
+	 * of space between the segments or not
+	 * @param that
+	 * @return True if collinear with/without a gap
+	 */
+	private boolean collinearWithGap(Segment that) {
+		//if share endpoint check with dr alvin's collinear method 
+		if (isSharedVertex(that)) return isCollinearWith(that);
+		
+		//check if coincide with gap of space between segments
+		return MathUtilities.doubleEquals(GeometryUtilities.distance(_point1, that.getPoint2()),
+				GeometryUtilities.distance(_point1, _point2) + 
+				GeometryUtilities.distance(that.getPoint1(), that.getPoint2()) +
+				GeometryUtilities.distance(_point2, that.getPoint1()));
+		
+	}
+	
+	/**
+	 * Checks whether the current segment and input segment share a vertex
+	 * @param that
+	 * @return True if share a vertex
+	 */
+	private boolean isSharedVertex(Segment that) {
+		return (_point1.equals(that._point1) || (_point1.equals(that._point2))
+				|| (_point2.equals(that._point1)) || (_point2.equals(that._point2)));
+		
 	}
 	
 	/**

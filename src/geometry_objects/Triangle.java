@@ -21,7 +21,7 @@ public class Triangle
 	public Triangle(List<Segment> segs) throws FactException
 	{
 		if (!isValidTriangle(segs)) throw new FactException();
-
+		
 		setTriangle(segs);
 	}
 	
