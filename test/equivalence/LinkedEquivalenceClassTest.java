@@ -87,7 +87,6 @@ class LinkedEquivalenceClassTest {
 		//check that the canonical is still what is was before
 		assertEquals(4 , l.canonical());
 		
-		
 	}
 	
 	
