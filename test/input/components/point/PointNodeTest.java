@@ -9,7 +9,10 @@
 package input.components.point;
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.Test;
+
+import geometry_objects.points.Point;
 
 class PointNodeTest {
 
@@ -23,7 +26,6 @@ class PointNodeTest {
 		_nodeB = new PointNode("B", 1, 1);
 	}
 	
-	
 	/**
 	 * test if two notes have same point
 	 */
@@ -32,6 +34,7 @@ class PointNodeTest {
 		assertTrue(_nodeA.equals(_nodeA2));
 		assertFalse(_nodeA.equals(_nodeB));
 	}
+	
 	/**
 	 * test toString method
 	 */
@@ -39,7 +42,6 @@ class PointNodeTest {
 	public void testToString() {
 		assertEquals("A(0.0, 0.0)", _nodeA.toString());
 	}
-	
 
 	
 	

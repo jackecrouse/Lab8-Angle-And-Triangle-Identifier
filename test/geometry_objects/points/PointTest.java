@@ -46,5 +46,11 @@ class PointTest {
 		//check points identical
 		assertEquals(0, Point.LexicographicOrdering(A, CopyA));
 	}
+	
+	@Test
+	public void distanceTest() {
+		assertEquals(10, Point.distance(new Point(0, 10), new Point(0, 0)));
+	}
+	
 
 }

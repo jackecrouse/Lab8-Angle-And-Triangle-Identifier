@@ -94,6 +94,11 @@ public class Point implements Comparable<Point>
 		return 0;
 	}
 
+	public static double distance(Point p1, Point p2)
+	{
+		return Math.sqrt((Math.pow((p2.getX() - p1.getX()), 2)) + (Math.pow((p2.getY() - p1.getY()), 2)));
+	}
+	
 	@Override
 	public int compareTo(Point that)
 	{
@@ -110,6 +115,7 @@ public class Point implements Comparable<Point>
 		if (MathUtilities.doubleEquals(this._x, pt.getX()) && MathUtilities.doubleEquals(this._y, pt.getY())) return true;
 		return false;
 	}
+	
 	
 	@Override
 	public String toString() {
