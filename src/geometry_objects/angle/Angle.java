@@ -11,6 +11,7 @@
 
 package geometry_objects.angle;
 
+
 import exceptions.FactException;
 import geometry_objects.Segment;
 import geometry_objects.points.Point;

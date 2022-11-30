@@ -41,18 +41,18 @@ class SegmentTest {
 		
 		
 		//check identical segments
-		assertTrue(testSegment1.hasSubSegment(identicalSegment1));
-		assertTrue(PIESegment.hasSubSegment(PIESegment));
+		assertTrue(testSegment1.HasSubSegment(identicalSegment1));
+		assertTrue(PIESegment.HasSubSegment(PIESegment));
 		//check segments with 1 identical endpoint
-		assertTrue(testSegment1.hasSubSegment(flatSubSegment1));
-		assertTrue(testSegment1.hasSubSegment(flatSubSegment2));
+		assertTrue(testSegment1.HasSubSegment(flatSubSegment1));
+		assertTrue(testSegment1.HasSubSegment(flatSubSegment2));
 		//check valid subsegment
-		assertTrue(diagonalSegment.hasSubSegment(diagonalSubSegment1));
+		assertTrue(diagonalSegment.HasSubSegment(diagonalSubSegment1));
 		//check points that arent collinear/not subsegments
-		assertFalse(testSegment1.hasSubSegment(invalidSubSegment1));
-		assertFalse(diagonalSegment.hasSubSegment(diagonalSubSegment3));
-		assertFalse(diagonalSegment.hasSubSegment(flatSubSegment2));
-		assertFalse(diagonalSegment.hasSubSegment(close));
+		assertFalse(testSegment1.HasSubSegment(invalidSubSegment1));
+		assertFalse(diagonalSegment.HasSubSegment(diagonalSubSegment3));
+		assertFalse(diagonalSegment.HasSubSegment(flatSubSegment2));
+		assertFalse(diagonalSegment.HasSubSegment(close));
 	}
 	
 	@Test
