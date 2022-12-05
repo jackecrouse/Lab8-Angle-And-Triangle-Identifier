@@ -67,11 +67,13 @@ public class Segment extends GeometricObject
 	 * @param candidate
 	 * @return true if this segment contains a subsegment.
 	 */
-
-	public boolean HasSubSegment(Segment candidate)
+	public boolean hasSubSegment(Segment candidate)
 	{
-		return this.pointLiesOnSegment(candidate._point1) &&
-				this.pointLiesOnSegment(candidate._point2);
+		//check if candidate endpoints lie between this segments endpoints
+		if (!(GeometryUtilities.between(candidate.getPoint1(), _point1, _point2))) return false;
+		if (!(GeometryUtilities.between(candidate.getPoint2(), _point1, _point2))) return false;
+		
+		return true;
 	}
 
 	/**
@@ -95,7 +97,7 @@ public class Segment extends GeometricObject
 	public boolean equals(Object obj)
 	{
 		if (obj == null) return false;
-
+		
 		if (!(obj instanceof Segment)) return false;
 		Segment that = (Segment)obj;
 
@@ -141,14 +143,7 @@ public class Segment extends GeometricObject
 	{
 		return _point1.hashCode() +_point2.hashCode();
 	}
-
-	/*
-	 * @param that -- a segment
-	 * @return true if the segments coincide, but do not overlap:
-	 *                    this                  that
-	 *             ----------------           ---------
-	 * Note: the segment MAY share an endpoint
-	 */
+	
 	/*
 	 * @param that -- a segment
 	 * @return true if the segments coincide, but do not overlap:
@@ -162,17 +157,17 @@ public class Segment extends GeometricObject
 		if (this.equals(that)) return false;
 		//points should have same slope/y-intercept
 		if (!(collinearWithGap(that))) return false;
-
+		
 		//check if either of that segment's endpoints lie between this segment's endpoints OR if endpoints are equal
 		//if that endpoint lies between this segments endpoints AND is not an endpoint return false;
 		if (GeometryUtilities.between(that.getPoint1(), _point1, _point2) && 
 				(!(that.getPoint1().equals(_point1) || that.getPoint1().equals(_point2)))) return false;
 		if (GeometryUtilities.between(that.getPoint2(), _point1, _point2) &&
 				(!(that.getPoint2().equals(_point1) || that.getPoint2().equals(_point2)))) return false;
-
+		
 		return true;
 	}
-
+	
 	/**
 	 * Checks whether two segments are collinear, but also factors in whether there is a gap
 	 * of space between the segments or not
@@ -182,13 +177,13 @@ public class Segment extends GeometricObject
 	private boolean collinearWithGap(Segment that) {
 		//if share endpoint check with dr alvin's collinear method 
 		if (isSharedVertex(that)) return isCollinearWith(that);
-
+		
 		//check if coincide with gap of space between segments
 		return MathUtilities.doubleEquals(GeometryUtilities.distance(_point1, that.getPoint2()),
 				GeometryUtilities.distance(_point1, _point2) + 
 				GeometryUtilities.distance(that.getPoint1(), that.getPoint2()) +
 				GeometryUtilities.distance(_point2, that.getPoint1()));
-
+		
 	}
 
 	/**
@@ -199,65 +194,49 @@ public class Segment extends GeometricObject
 	private boolean isSharedVertex(Segment that) {
 		return (_point1.equals(that._point1) || (_point1.equals(that._point2))
 				|| (_point2.equals(that._point1)) || (_point2.equals(that._point2)));
-
+		
 	}
-
+	
 	/**
-	 * 
+	 * Returns a set of ordered points that lie on this segment
 	 * @return the set of Points that lie on this segment (ordered lexicographically)
 	 */
 	public SortedSet<Point> collectOrderedPointsOnSegment(Set<Point> points)
 	{
 		SortedSet<Point> pointsOn = new TreeSet<Point>();
-		for (Point pt : points)
-		{
-			if (pointLiesBetweenEndpoints(pt)) pointsOn.add(pt);
+
+        //find points from given set that lie on segment 
+		for (Point point:points) {
+			if (pointLiesOnSegment(point)) pointsOn.add(point);
 		}
+
 		return pointsOn;
 	}
-
-	/*
-	 * @param thisRay -- a ray
-	 * @param thatRay -- a ray
-	 * @return Does thatRay overlay thisRay? As in, both share same origin point, but other two points
-	 * are not common: one extends over the other.
+	
+	
+	/**
+	 * Returns this segment as a readable string
+	 * @return
 	 */
-	public static boolean overlaysAsRay(Segment left, Segment right)
-	{
-		// Equal segments overlay
-		if (left.equals(right)) return true;
-
-		// Get point where they share an endpoint
-		Point shared = left.sharedVertex(right);
-		if (shared == null) return false;
-
-		// Collinearity is required
-		if (!left.isCollinearWith(right)) return false;
-
-		Point otherL = left.other(shared);
-		Point otherR = right.other(shared);
-
-		// Rays pointing in the same direction?
-		// Avoid: <--------------------- . ---------------->
-		//      V------------W------------Z
-		// middle  endpoint  endpoint
-		return GeometryUtilities.between(otherL, shared, otherR) ||
-				GeometryUtilities.between(otherR, shared, otherL);
+	public String toString() {
+		
+		return _point1.getName() + _point2.getName() + ": " + _point1.toString() + ", " + _point2.toString();
+		
 	}
-
-	@Override
-	public String toString()
-	{
-		return "Seg(" + _point1.getName() + _point2.getName() + ")";
-	}
-
-
-	public boolean isMinimalSegment(Set<Point> implicitSegmentPoints) {
-
-		for(Point p: implicitSegmentPoints)
-		{
-			if(pointLiesOn(p)) return false;
+	
+	/**
+	 * Checks whether this segment is a minimal segment based on an input set of points
+	 * Will only return false if points lie BETWEEN the segments endpoints
+	 * @param points
+	 * @return true if minimal segment (AKA no points lie between endpoints)
+	 */
+	public boolean isMinimalSegment(Set<Point> points) {
+		//loop over all points, if any points lie between then not minimal 
+		for (Point p:points) {
+			if (pointLiesBetweenEndpoints(p)) return false;
 		}
+		
 		return true;
+			
 	}
 }
