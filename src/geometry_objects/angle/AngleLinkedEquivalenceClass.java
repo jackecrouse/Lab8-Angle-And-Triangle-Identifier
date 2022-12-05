@@ -28,31 +28,55 @@ import equivalence.LinkedEquivalenceClass;
  */
 public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 {	
-	
 	public AngleLinkedEquivalenceClass() 
 	{
 		super(new AngleStructureComparator()); //CHECK
 	}
-	
+
 	@Override
 	public boolean add(Angle ang)
 	{
-		return false;
+		if(ang == null) return false;
+		if(contains(ang)) return false;
+		if(!(belongs(ang))) return false;
+		
+		if(_canonical == null) _rest.addToFront(ang);
+		if(_canonical.compareTo(ang) == -1) 
+		{
+			_rest.addToBack(_canonical);
+			_canonical = ang;
+		}
+		_rest.addToBack(ang);
+
+		return true;
 	}
-	
+
 	@Override
 	public boolean removeCanonical()
 	{
-		return false;
+		if(_canonical == null || _rest.isEmpty()) return false;
+		_canonical = getSmallestAngle(); 
+		return true;
 	}
 	
-	@Override
-	public boolean demoteAndSetCanonical(Angle ang)
+	public boolean remove(Angle target)
 	{
-		return false;
+		if(target.equals(_canonical)) return removeCanonical(); 
+		return _rest.remove(target);
 	}
 	
-	
+	private Angle getSmallestAngle()
+	{
+		if(_rest.isEmpty()) return null;
+		Angle smallest = _rest.getIndex(0);
+		
+		for(int i = 0; i < _rest.size() - 1; i++)
+		{
+			if(_rest.getIndex(i).compareTo(smallest) == -1) smallest = _rest.getIndex(i);
+		}	
+		return smallest;
+	}
+
 	@Override public boolean belongs(Angle ang)
 	{
 		//if(_comparator.compare(_canonical, a

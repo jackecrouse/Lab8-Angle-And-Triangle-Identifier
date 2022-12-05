@@ -1,0 +1,11 @@
+
+bin/preprocessor/TriangleIdentifierTest.class
+bin/preprocessor/TriangleIdentifier.class
+bin/preprocessor/AngleIdentifierTest.class
+bin/preprocessor/AngleIdentifier.class
+bin/geometry_objects/Triangle.class
+bin/geometry_objects/angle/comparators/AngleStructureComparator.class
+bin/geometry_objects/angle/AngleLinkedEquivalenceClass.class
+bin/geometry_objects/angle/AngleEquivalenceClasses.class
+bin/geometry_objects/angle/Angle.class
+bin/exceptions/FactException.class
