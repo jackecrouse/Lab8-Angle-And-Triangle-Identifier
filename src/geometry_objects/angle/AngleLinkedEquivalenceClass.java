@@ -76,10 +76,16 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		}	
 		return smallest;
 	}
-
+/*
+ * public boolean belongs(T target) {
+		//TODO test
+		//returns whether the target belongs in the equivalence class
+		if (_comparator.compare(_canonical, target) == 0) return true;
+		return false;
+	}
+ */
 	@Override public boolean belongs(Angle ang)
 	{
-		//if(_comparator.compare(_canonical, a
-		return false;
+		return _comparator.compare(_canonical, ang) == 1;
 	}
 }
