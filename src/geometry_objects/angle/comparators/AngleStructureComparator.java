@@ -64,7 +64,7 @@ public class AngleStructureComparator implements Comparator<Angle>
 		if(!(left.getRay1().isCollinearWith(right.getRay1()) && 
 		   left.getRay2().isCollinearWith(right.getRay2()) &&
 		   left.getVertex().equals(right.getVertex()))) {
-			return Integer.MAX_VALUE;
+			return STRUCTURALLY_INCOMPARABLE;
 		}
 		//return 1 if both rays for left are larger then those of right
 		if(left.getRay1().HasSubSegment(right.getRay1()) && left.getRay2().HasSubSegment(right.getRay2())) {
