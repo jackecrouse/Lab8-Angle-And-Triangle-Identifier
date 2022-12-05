@@ -119,6 +119,4 @@ public class EquivalenceClasses<T> {
 		//String representation of all the classes in arrayList 
 		return s.toString();
 	}
-	
-
 }

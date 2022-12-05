@@ -71,7 +71,7 @@ public class Segment extends GeometricObject
 	public boolean HasSubSegment(Segment candidate)
 	{
 		return this.pointLiesOnSegment(candidate._point1) &&
-               this.pointLiesOnSegment(candidate._point2);
+				this.pointLiesOnSegment(candidate._point2);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class Segment extends GeometricObject
 	public boolean equals(Object obj)
 	{
 		if (obj == null) return false;
-		
+
 		if (!(obj instanceof Segment)) return false;
 		Segment that = (Segment)obj;
 
@@ -162,17 +162,17 @@ public class Segment extends GeometricObject
 		if (this.equals(that)) return false;
 		//points should have same slope/y-intercept
 		if (!(collinearWithGap(that))) return false;
-		
+
 		//check if either of that segment's endpoints lie between this segment's endpoints OR if endpoints are equal
 		//if that endpoint lies between this segments endpoints AND is not an endpoint return false;
 		if (GeometryUtilities.between(that.getPoint1(), _point1, _point2) && 
 				(!(that.getPoint1().equals(_point1) || that.getPoint1().equals(_point2)))) return false;
 		if (GeometryUtilities.between(that.getPoint2(), _point1, _point2) &&
 				(!(that.getPoint2().equals(_point1) || that.getPoint2().equals(_point2)))) return false;
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Checks whether two segments are collinear, but also factors in whether there is a gap
 	 * of space between the segments or not
@@ -182,15 +182,15 @@ public class Segment extends GeometricObject
 	private boolean collinearWithGap(Segment that) {
 		//if share endpoint check with dr alvin's collinear method 
 		if (isSharedVertex(that)) return isCollinearWith(that);
-		
+
 		//check if coincide with gap of space between segments
 		return MathUtilities.doubleEquals(GeometryUtilities.distance(_point1, that.getPoint2()),
 				GeometryUtilities.distance(_point1, _point2) + 
 				GeometryUtilities.distance(that.getPoint1(), that.getPoint2()) +
 				GeometryUtilities.distance(_point2, that.getPoint1()));
-		
+
 	}
-	
+
 	/**
 	 * Checks whether the current segment and input segment share a vertex
 	 * @param that
@@ -199,9 +199,9 @@ public class Segment extends GeometricObject
 	private boolean isSharedVertex(Segment that) {
 		return (_point1.equals(that._point1) || (_point1.equals(that._point2))
 				|| (_point2.equals(that._point1)) || (_point2.equals(that._point2)));
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @return the set of Points that lie on this segment (ordered lexicographically)
@@ -215,39 +215,49 @@ public class Segment extends GeometricObject
 		}
 		return pointsOn;
 	}
-	
-    /*
-     * @param thisRay -- a ray
-     * @param thatRay -- a ray
-     * @return Does thatRay overlay thisRay? As in, both share same origin point, but other two points
-     * are not common: one extends over the other.
-     */
-    public static boolean overlaysAsRay(Segment left, Segment right)
-    {
-    	// Equal segments overlay
-    	if (left.equals(right)) return true;
 
-    	// Get point where they share an endpoint
-    	Point shared = left.sharedVertex(right);
-    	if (shared == null) return false;
+	/*
+	 * @param thisRay -- a ray
+	 * @param thatRay -- a ray
+	 * @return Does thatRay overlay thisRay? As in, both share same origin point, but other two points
+	 * are not common: one extends over the other.
+	 */
+	public static boolean overlaysAsRay(Segment left, Segment right)
+	{
+		// Equal segments overlay
+		if (left.equals(right)) return true;
 
-    	// Collinearity is required
-    	if (!left.isCollinearWith(right)) return false;
-    	
-    	Point otherL = left.other(shared);
-    	Point otherR = right.other(shared);
-    	
-        // Rays pointing in the same direction?
-        // Avoid: <--------------------- . ---------------->
-        //      V------------W------------Z
-                                     // middle  endpoint  endpoint
-        return GeometryUtilities.between(otherL, shared, otherR) ||
-        	   GeometryUtilities.between(otherR, shared, otherL);
-    }
-    
-    @Override
-    public String toString()
-    {
-    	return "Seg(" + _point1.getName() + _point2.getName() + ")";
-    }
+		// Get point where they share an endpoint
+		Point shared = left.sharedVertex(right);
+		if (shared == null) return false;
+
+		// Collinearity is required
+		if (!left.isCollinearWith(right)) return false;
+
+		Point otherL = left.other(shared);
+		Point otherR = right.other(shared);
+
+		// Rays pointing in the same direction?
+		// Avoid: <--------------------- . ---------------->
+		//      V------------W------------Z
+		// middle  endpoint  endpoint
+		return GeometryUtilities.between(otherL, shared, otherR) ||
+				GeometryUtilities.between(otherR, shared, otherL);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Seg(" + _point1.getName() + _point2.getName() + ")";
+	}
+
+
+	public boolean isMinimalSegment(Set<Point> implicitSegmentPoints) {
+
+		for(Point p: implicitSegmentPoints)
+		{
+			if(pointLiesOn(p)) return false;
+		}
+		return true;
+	}
 }
