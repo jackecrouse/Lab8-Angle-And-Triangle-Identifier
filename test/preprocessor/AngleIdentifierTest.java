@@ -180,8 +180,7 @@ class AngleIdentifierTest
 
 			expectedAngles.add(new Angle(bc, ce));			
 		}
-		catch (FactException te) { System.err.println("Invalid Angles in Angle test."); }
-
+		catch (FactException te) { System.err.println("Invalid Angles in Angle test.");}
 		assertEquals(expectedAngles.size(), computedAngles.size());
 		
 		//
@@ -193,3 +192,4 @@ class AngleIdentifierTest
 		}
 	}
 }
+	

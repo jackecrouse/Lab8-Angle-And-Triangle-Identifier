@@ -61,17 +61,25 @@ public class AngleStructureComparator implements Comparator<Angle>
         //return Integer.MAX_VALUE if structurally incomparable  
 		//make sure center point is the same
 		// make sure both rays are colinear
-		if(!(left.getRay1().isCollinearWith(right.getRay1()) && 
-		   left.getRay2().isCollinearWith(right.getRay2()) &&
-		   left.getVertex().equals(right.getVertex()))) {
-			return STRUCTURALLY_INCOMPARABLE;
-		}
+		
+		if(left == null || right == null) return STRUCTURALLY_INCOMPARABLE;
+		
+		if(!left.overlays(right)) return STRUCTURALLY_INCOMPARABLE;
+				
 		//return 1 if both rays for left are larger then those of right
-		if(left.getRay1().hasSubSegment(right.getRay1()) && left.getRay2().hasSubSegment(right.getRay2())) {
+		if((left.getRay1().hasSubSegment(right.getRay1()) ||
+				left.getRay1().hasSubSegment(right.getRay2()) ||
+				left.equals(right)) &&
+				(left.getRay2().hasSubSegment(right.getRay1()) ||
+						left.getRay2().hasSubSegment(right.getRay2()))) {
 			return 1;
 		}
+		
 		//return -1 if both rays for the right are larger then those of the left
-		if(right.getRay1().hasSubSegment(left.getRay1()) && right.getRay2().hasSubSegment(left.getRay2())) {
+		if((right.getRay1().hasSubSegment(left.getRay1()) ||
+				right.getRay1().hasSubSegment(left.getRay2()) &&
+				right.getRay2().hasSubSegment(left.getRay1()) ||
+				right.getRay2().hasSubSegment(left.getRay2()))) {
 			return -1;
 		}
 		return 0;
