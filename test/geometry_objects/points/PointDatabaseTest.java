@@ -64,27 +64,6 @@ class PointDatabaseTest {
 	}
 	
 	@Test
-	void getNametest() {
-		PointDatabase pdb = new PointDatabase(fillPDB());		
-		
-		assertEquals("Hey", pdb.getName(0, 1));
-		assertEquals("Hey", pdb.getName(pdb.getPoint("Hey")));
-		
-		assertEquals("Bye", pdb.getName(1, 0));
-		assertEquals("Bye", pdb.getName(pdb.getPoint("Bye")));
-		
-		assertEquals("Yo", pdb.getName(2, 2));
-		assertEquals("Yo", pdb.getName(pdb.getPoint("Yo")));
-		
-		assertEquals("*_A", pdb.getName(4, 4));
-		assertEquals("*_A", pdb.getName(pdb.getPoint("*_A")));
-		
-		pdb.put("Overwrite", 4, 4);
-		assertEquals("Overwrite", pdb.getName(4, 4));
-		assertEquals("Overwrite", pdb.getName(pdb.getPoint("Overwrite")));
-	}
-	
-	@Test
 	void getPointtest() {		
 		List<Point> list = fillPDB();
 		PointDatabase pdb = new PointDatabase(list);

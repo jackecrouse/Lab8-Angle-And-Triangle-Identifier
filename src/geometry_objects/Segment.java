@@ -114,7 +114,6 @@ public class Segment extends GeometricObject
 	public Point sharedVertex(Segment that)
 	{
 		if (this.equals(that)) return null;
-		if (this._point1 == null || this._point2 == null) return null;
 		
 		if (_point1.equals(that._point1)) return _point1;
 		if (_point1.equals(that._point2)) return _point1;

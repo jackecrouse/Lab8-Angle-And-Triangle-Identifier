@@ -76,4 +76,17 @@ public class AngleEquivalenceClasses extends EquivalenceClasses<Angle>
 		return -1;
 	}
 	
+	/**
+	 * Returns the number of equivalence classes contained in the list
+	 * @return and integer 
+	 */
+	@Override
+	public int size() {
+		//calculate # of items in all classes
+		int size = 0;
+		for (var c: _classes) {
+			size += c.size();
+		}
+		return size;
+	}
 }

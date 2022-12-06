@@ -90,4 +90,6 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		return _comparator.compare(_canonical, ang) == -1;
 		
 	}
+	
+	
 }
