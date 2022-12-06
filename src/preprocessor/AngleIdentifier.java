@@ -52,14 +52,16 @@ public class AngleIdentifier
 						Angle a = new Angle(segment1, segment2);
 
 						boolean newLEQ = true;
+						
 						for(var angleLEQ: _angles.getClasses())
 						{
 							if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
 						}
 						if(newLEQ == true) {
 							AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
-							newEquiv.demoteAndSetCanonical(a);
+							newEquiv.add(a);
 							_angles.add(newEquiv);
+							System.out.println(newEquiv.toString());
 						}
 					}
 				}

@@ -36,6 +36,11 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 	@Override
 	public boolean add(Angle ang)
 	{
+		if(_canonical == null)
+		{
+			_canonical = ang;
+			return true;
+		}
 		if(ang == null) return false;
 		if(contains(ang)) return false;
 		if(!(belongs(ang))) return false;
@@ -77,7 +82,8 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		return smallest;
 	}
 
-	@Override public boolean belongs(Angle ang)
+	@Override 
+	public boolean belongs(Angle ang)
 	{
 		return _comparator.compare(_canonical, ang) == 1;
 	}
