@@ -1,5 +1,6 @@
 package preprocessor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import exceptions.FactException;
 import geometry_objects.Segment;
 import geometry_objects.Triangle;
+import geometry_objects.angle.Angle;
+import geometry_objects.angle.AngleEquivalenceClasses;
 import geometry_objects.points.Point;
 import geometry_objects.points.PointDatabase;
 import input.components.FigureNode;
@@ -122,6 +125,42 @@ class TriangleIdentifierTest
 			assertTrue(expectedTriangles.contains(computedTriangle));
 			
 		}
+		
+	}
+	@Test
+	public void simpleTriangle() {
+		//a = (0,0)
+		//b = (1,1)
+		//c = (1,0)
+		//a simple right triangle
+		
+		init("single_triangle.json");
+
+		AngleIdentifier angleIdentifier = new AngleIdentifier(_segments);
+
+		AngleEquivalenceClasses computedAngles = angleIdentifier.getAngles();
+
+		// The number of classes should equate to the number of 'minimal' angles
+		assertEquals("Number of Angle Equivalence classes", 3, computedAngles.numClasses());
+		
+		//
+		// ALL original segments: 3 in this figure.
+		//
+		
+		Segment ab = new Segment(_points.getPoint("A"), _points.getPoint("B"));
+		Segment ac = new Segment(_points.getPoint("A"), _points.getPoint("C"));
+		Segment bc = new Segment(_points.getPoint("B"), _points.getPoint("C"));
+		
+		List<Angle> expectedAngles = new ArrayList<Angle>();
+		try {
+			expectedAngles.add(new Angle(ac, bc));
+			expectedAngles.add(new Angle(ab, bc));
+			expectedAngles.add(new Angle(ac, bc));
+			expectedTriangle = Triangle(expectedAngles);
+		}
+		catch (FactException te) { System.err.println("Invalid Angles in Angle test.");} 
+		
+		
 		
 	}
 }
