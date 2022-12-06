@@ -8,6 +8,7 @@ import exceptions.FactException;
 import geometry_objects.Segment;
 import geometry_objects.angle.Angle;
 import geometry_objects.angle.AngleEquivalenceClasses;
+import geometry_objects.angle.AngleLinkedEquivalenceClass;
 
 public class AngleIdentifier
 {
@@ -43,9 +44,14 @@ public class AngleIdentifier
 					segment1.getPoint2() == segment2.getPoint1() ||
 					segment1.getPoint2() == segment2.getPoint2()) {
 					Angle a = new Angle(segment1, segment2);
+					boolean newLEQ = true;
 					for(var angleLEQ: _angles.getClasses())
 					{
-						if(angleLEQ.belongs(a));
+						if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
+					}
+					if(newLEQ == true) {
+						AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
+						newEquiv.demoteAndSetCanonical(a);
 					}
 				}
 			}
