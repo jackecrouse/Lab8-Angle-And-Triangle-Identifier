@@ -86,6 +86,12 @@ public class EquivalenceClasses<T> {
 		//return size of list, list should not have duplicates
 		return _classes.size();
 	}
+	
+	
+	public List<LinkedEquivalenceClass<T>> getClasses()
+	{
+		return _classes;
+	}
 
 	/**
 	 * Returns the index a particular class is located at; Returns -1 if

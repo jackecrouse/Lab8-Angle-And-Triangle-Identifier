@@ -35,15 +35,18 @@ public class AngleIdentifier
 
 	private void computeAngles() throws FactException
 	{
-		ArrayList arr = new ArrayList();
-		for(var segment1: _segments.keySet()) {
-			for(var segment2: _segments.keySet()) {
+		ArrayList<Angle> arr = new ArrayList<Angle>();
+		for(Segment segment1: _segments.keySet()) {
+			for(Segment segment2: _segments.keySet()) {
 				if (segment1.getPoint1() == segment2.getPoint1() ||
 					segment1.getPoint1() == segment2.getPoint2() ||
 					segment1.getPoint2() == segment2.getPoint1() ||
 					segment1.getPoint2() == segment2.getPoint2()) {
 					Angle a = new Angle(segment1, segment2);
-					arr.add(a);
+					for(var angleLEQ: _angles.getClasses())
+					{
+						if(angleLEQ.belongs(a));
+					}
 				}
 			}
 		}
