@@ -42,32 +42,19 @@ public class AngleIdentifier
 	private void computeAngles() throws FactException
 	{
 		for(Segment segment1: _segments.keySet()) {
-			for(Segment segment2: _segments.keySet()) {
-				if(areSegmentsValid(segment1, segment2))
+			for(Segment segment2: _segments.keySet()) {	
+				try
 				{
-					try
+					if(!_angles.contains(new Angle(segment2, segment1)) && !segment1.equals(segment2))
 					{
-						if(!_angles.contains(new Angle(segment2, segment1)))
-						{
-							_angles.add(new Angle(segment1, segment2)); 
-						}
+						_angles.add(new Angle(segment1, segment2)); 
 					}
-					catch(Exception e)
-					{
-						
-					}
+				}
+				catch(Exception e)
+				{
+					
 				}
 			}
 		}
 	}
-
-	private boolean areSegmentsValid(Segment s1, Segment s2)
-	{
-		if(s1.equals(s2)) return false;
-		if(s1.hasSubSegment(s2) || s2.hasSubSegment(s1)) return false;
-		if(s1.coincideWithoutOverlap(s2) || s2.coincideWithoutOverlap(s1)) return false;
-		
-		return true;
-	}
-
 }
