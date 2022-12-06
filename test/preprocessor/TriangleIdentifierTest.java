@@ -151,12 +151,12 @@ class TriangleIdentifierTest
 		Segment ac = new Segment(_points.getPoint("A"), _points.getPoint("C"));
 		Segment bc = new Segment(_points.getPoint("B"), _points.getPoint("C"));
 		
-		List<Angle> expectedAngles = new ArrayList<Angle>();
+		List<Segment> expectedAngles = new ArrayList<Segment>();
 		try {
-			expectedAngles.add(new Angle(ac, bc));
-			expectedAngles.add(new Angle(ab, bc));
-			expectedAngles.add(new Angle(ac, bc));
-			expectedTriangle = Triangle(expectedAngles);
+			expectedAngles.add(ab);
+			expectedAngles.add(ac);
+			expectedAngles.add(bc);
+			Triangle expectedTriangle = new Triangle(expectedAngles);
 		}
 		catch (FactException te) { System.err.println("Invalid Angles in Angle test.");} 
 		
