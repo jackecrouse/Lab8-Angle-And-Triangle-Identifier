@@ -136,10 +136,11 @@ class TriangleIdentifierTest
 		
 		init("single_triangle.json");
 
-		AngleIdentifier angleIdentifier = new AngleIdentifier(_segments);
+		TriangleIdentifier triIdentifier = new TriangleIdentifier(_segments);
 
-		AngleEquivalenceClasses computedAngles = angleIdentifier.getAngles();
-
+		Set<Triangle> computedAngles = triIdentifier.getTriangles();
+		
+		Triangle computedTriangle = 
 		// The number of classes should equate to the number of 'minimal' angles
 		assertEquals("Number of Angle Equivalence classes", 3, computedAngles.numClasses());
 		
@@ -158,9 +159,11 @@ class TriangleIdentifierTest
 			expectedAngles.add(bc);
 			Triangle expectedTriangle = new Triangle(expectedAngles);
 		}
+		
 		catch (FactException te) { System.err.println("Invalid Angles in Angle test.");} 
 		
-		
-		
+	
 	}
+	
+	
 }
