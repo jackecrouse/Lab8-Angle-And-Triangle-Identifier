@@ -1,7 +1,7 @@
 package preprocessor;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashSet;
 import java.util.Map;
 
 import exceptions.FactException;
@@ -51,30 +51,34 @@ public class AngleIdentifier
 							segment1.getPoint2().equals(segment2.getPoint2())) {
 						Angle a = new Angle(segment1, segment2);
 
-						boolean newLEQ = true;
-						
-						for(var angleLEQ: _angles.getClasses())
+						if(!_angles.contains(new Angle(segment2, segment1)))
 						{
-							if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
-						}
-						if(newLEQ == true) {
-							AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
-							newEquiv.add(a);
-							_angles.add(newEquiv);
-							System.out.println(newEquiv.toString());
+							boolean newLEQ = true;
+
+							for(var angleLEQ: _angles.getClasses())
+							{
+								if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
+							}
+							if(newLEQ == true) {
+								AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
+								newEquiv.add(a);
+								_angles.add(newEquiv);
+								System.out.println(newEquiv);
+							}
 						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	private boolean areSegmentsValid(Segment s1, Segment s2)
 	{
 		if(s1.equals(s2)) return false;
 		if(s1.hasSubSegment(s2) || s2.hasSubSegment(s1)) return false;
 		if(s1.coincideWithoutOverlap(s2) || s2.coincideWithoutOverlap(s1)) return false;
+
 		return true;
 	}
-	
+
 }
