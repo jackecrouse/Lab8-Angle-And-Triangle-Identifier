@@ -41,13 +41,13 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 			_canonical = ang;
 			return true;
 		}
+		
 		if(ang == null) return false;
 		if(contains(ang)) return false;
 		if(!(belongs(ang))) return false;
 		
-		if(_canonical == null) _rest.addToFront(ang);
 		if(_canonical.compareTo(ang) == -1) 
-		{
+		{ 
 			_rest.addToBack(_canonical);
 			_canonical = ang;
 		}
@@ -85,6 +85,8 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 	@Override 
 	public boolean belongs(Angle ang)
 	{
+		if(_canonical == null) return true;
 		return _comparator.compare(_canonical, ang) == 1;
+		
 	}
 }

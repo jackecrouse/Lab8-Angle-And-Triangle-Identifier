@@ -44,28 +44,17 @@ public class AngleIdentifier
 		for(Segment segment1: _segments.keySet()) {
 			for(Segment segment2: _segments.keySet()) {
 				if(areSegmentsValid(segment1, segment2))
-				{				
-					if (segment1.getPoint1().equals(segment2.getPoint1()) ||
-							segment1.getPoint1().equals(segment2.getPoint2()) ||
-							segment1.getPoint2().equals(segment2.getPoint1()) ||
-							segment1.getPoint2().equals(segment2.getPoint2())) {
-						Angle a = new Angle(segment1, segment2);
-
+				{
+					try
+					{
 						if(!_angles.contains(new Angle(segment2, segment1)))
 						{
-							boolean newLEQ = true;
-
-							for(var angleLEQ: _angles.getClasses())
-							{
-								if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
-							}
-							if(newLEQ == true) {
-								AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
-								newEquiv.add(a);
-								_angles.add(newEquiv);
-								System.out.println(newEquiv);
-							}
+							_angles.add(new Angle(segment1, segment2)); 
 						}
+					}
+					catch(Exception e)
+					{
+						
 					}
 				}
 			}
@@ -77,7 +66,7 @@ public class AngleIdentifier
 		if(s1.equals(s2)) return false;
 		if(s1.hasSubSegment(s2) || s2.hasSubSegment(s1)) return false;
 		if(s1.coincideWithoutOverlap(s2) || s2.coincideWithoutOverlap(s1)) return false;
-
+		
 		return true;
 	}
 
