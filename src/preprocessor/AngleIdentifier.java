@@ -37,6 +37,10 @@ public class AngleIdentifier
 		return _angles;
 	}
 
+	
+	/*
+	 * Finds angles and adds them to the AngleEquivalenceClass _angles
+	 */
 	private void computeAngles() throws FactException
 	{
 		ArrayList<Segment> segArray = new ArrayList<Segment>(_segments.keySet());
