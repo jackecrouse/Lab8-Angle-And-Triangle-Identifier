@@ -29,14 +29,18 @@ public class AngleIdentifier
 
 		_angles = new AngleEquivalenceClasses();
 
-		computeAngles();
+		try {
+			computeAngles();
+		} catch (FactException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return _angles;
 	}
 
 	private void computeAngles() throws FactException
 	{
-		ArrayList<Angle> arr = new ArrayList<Angle>();
 		for(Segment segment1: _segments.keySet()) {
 			for(Segment segment2: _segments.keySet()) {
 				if (segment1.getPoint1() == segment2.getPoint1() ||
@@ -44,6 +48,7 @@ public class AngleIdentifier
 					segment1.getPoint2() == segment2.getPoint1() ||
 					segment1.getPoint2() == segment2.getPoint2()) {
 					Angle a = new Angle(segment1, segment2);
+
 					boolean newLEQ = true;
 					for(var angleLEQ: _angles.getClasses())
 					{
