@@ -110,6 +110,7 @@ public class Point implements Comparable<Point>
 	@Override
 	public boolean equals(Object o) {
 		// if x and y values of the points are equal, the points are equal 
+		if(o == null) return false;
 		if (!(o instanceof Point)) return false;
 		Point pt = (Point)o;
 		if (MathUtilities.doubleEquals(this._x, pt.getX()) && MathUtilities.doubleEquals(this._y, pt.getY())) return true;

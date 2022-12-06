@@ -114,7 +114,7 @@ public class PointNamingFactory
 	 */
 	public Point get(double x, double y)
 	{		
-		return _database.get(new Point(x,y));
+		return new Point(x,y);
 	}
 	
 	public Point get(Point pt)
