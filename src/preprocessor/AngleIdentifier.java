@@ -1,16 +1,12 @@
 package preprocessor;
 
-
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Map;
 
 import exceptions.FactException;
 import geometry_objects.Segment;
 import geometry_objects.angle.Angle;
 import geometry_objects.angle.AngleEquivalenceClasses;
-import geometry_objects.angle.AngleLinkedEquivalenceClass;
 
 public class AngleIdentifier
 {
@@ -56,7 +52,8 @@ public class AngleIdentifier
 							!s1.equals(s2) ||
 							!s1.hasSubSegment(s2) ||
 							!s2.hasSubSegment(s1) ||
-							!Segment.overlaysAsRay(s1, s2))
+							!Segment.overlaysAsRay(s1, s2) ||
+							!_angles.contains(new Angle(s1, s2)))
 					{
 						_angles.add(new Angle(s1, s2)); 
 					}

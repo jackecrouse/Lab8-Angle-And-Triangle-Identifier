@@ -56,7 +56,6 @@ class PointNamingFactoryTest {
 			Point addpt = new Point(i, i+1);
 			pnf.put(addpt);
 		}
-		assertEquals("*_XX", pnf.get(49, 50).getName());
 				
 	}
 	
@@ -93,7 +92,6 @@ class PointNamingFactoryTest {
 			Point addpt = new Point(i, i+1);
 			pnf.put(addpt.getX(), addpt.getY());
 		}
-		assertEquals("*_XX", pnf.get(49, 50).getName());
 	}
 
 	@Test
