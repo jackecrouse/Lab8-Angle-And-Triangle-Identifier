@@ -43,25 +43,35 @@ public class AngleIdentifier
 	{
 		for(Segment segment1: _segments.keySet()) {
 			for(Segment segment2: _segments.keySet()) {
-				if (segment1.getPoint1() == segment2.getPoint1() ||
-					segment1.getPoint1() == segment2.getPoint2() ||
-					segment1.getPoint2() == segment2.getPoint1() ||
-					segment1.getPoint2() == segment2.getPoint2()) {
-					Angle a = new Angle(segment1, segment2);
+				if(areSegmentsValid(segment1, segment2))
+				{				
+					if (segment1.getPoint1().equals(segment2.getPoint1()) ||
+							segment1.getPoint1().equals(segment2.getPoint2()) ||
+							segment1.getPoint2().equals(segment2.getPoint1()) ||
+							segment1.getPoint2().equals(segment2.getPoint2())) {
+						Angle a = new Angle(segment1, segment2);
 
-					boolean newLEQ = true;
-					for(var angleLEQ: _angles.getClasses())
-					{
-						if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
-					}
-					if(newLEQ == true) {
-						AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
-						newEquiv.demoteAndSetCanonical(a);
+						boolean newLEQ = true;
+						for(var angleLEQ: _angles.getClasses())
+						{
+							if(angleLEQ.belongs(a)) { angleLEQ.add(a); newLEQ = false;}
+						}
+						if(newLEQ == true) {
+							AngleLinkedEquivalenceClass newEquiv = new AngleLinkedEquivalenceClass();
+							newEquiv.demoteAndSetCanonical(a);
+							_angles.add(newEquiv);
+						}
 					}
 				}
 			}
 		}
-		
+	}
+	
+	private boolean areSegmentsValid(Segment s1, Segment s2)
+	{
+		if(s1.equals(s2)) return false;
+		if(s1.hasSubSegment(s2) || s2.hasSubSegment(s1)) return false;
+		return true;
 	}
 	
 }
