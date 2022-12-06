@@ -46,7 +46,7 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		if(contains(ang)) return false;
 		if(!(belongs(ang))) return false;
 		
-		if(_canonical.compareTo(ang) == -1) 
+		if(_comparator.compare(ang, _canonical)== -1); 
 		{ 
 			_rest.addToBack(_canonical);
 			_canonical = ang;
@@ -77,7 +77,7 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		
 		for(int i = 0; i < _rest.size() - 1; i++)
 		{
-			if(_rest.getIndex(i).compareTo(smallest) == -1) smallest = _rest.getIndex(i);
+			if(_comparator.compare(_rest.getIndex(i), smallest) == -1) smallest = _rest.getIndex(i);
 		}	
 		return smallest;
 	}
