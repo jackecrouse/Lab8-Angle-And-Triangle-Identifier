@@ -26,9 +26,9 @@ class TriangleIdentifierTest
 	
 	protected void init(String filename)
 	{
-		FigureNode fig = InputFacade.extractFigure("crossing_symmetric_triangle.json");
+		//FigureNode fig = InputFacade.extractFigure("crossing_symmetric_triangle.json");
 
-		Map.Entry<PointDatabase, Set<Segment>> pair = InputFacade.toGeometryRepresentation(fig);
+		Map.Entry<PointDatabase, Set<Segment>> pair = InputFacade.toGeometryRepresentation("JSON/crossing_symmetric_triangle.json");
 
 		_points = pair.getKey();
 
@@ -120,6 +120,8 @@ class TriangleIdentifierTest
 		for (Triangle computedTriangle : computedTriangles)
 		{
 			assertTrue(expectedTriangles.contains(computedTriangle));
+			
 		}
+		
 	}
 }

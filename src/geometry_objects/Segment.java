@@ -140,6 +140,7 @@ public class Segment extends GeometricObject
 	 */
 	public boolean isCollinearWith(Segment that) { return LineDelegate.areCollinear(this, that); }
 
+	
 	/*
 	 * @param pt -- a point
 	 * @return true if @pt is one of the endpoints of this segment

@@ -1,5 +1,6 @@
 package preprocessor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +38,30 @@ public class TriangleIdentifier
 
 	private void computeTriangles()
 	{
-		
+		//loop for segment 1
+		for(int i = 0; i < _segments.keySet().size(); i++) {
+			//loop for segment 2
+			for(int j = 1; j < _segments.keySet().size(); j++) {
+				//loop for segment 3
+				for(int k = 2; k < _segments.keySet().size(); k++) {
+						
+						//adding segments to a list to be made into a triangle
+						ArrayList<Segment> l = new ArrayList<Segment>();
+						l.add((Segment)_segments.keySet().toArray()[i]);
+						l.add((Segment)_segments.keySet().toArray()[j]);
+						l.add((Segment)_segments.keySet().toArray()[k]);
+						try {
+							//making new triangle and adding to _triangles 
+							//if invalid in constructer wont be added and will fall through
+							Triangle t = new Triangle(l);
+							_triangles.add(t);
+							
+						} catch (FactException e) {
+							
+						}
+					
+				}
+			}
+		}
 	}
 }
