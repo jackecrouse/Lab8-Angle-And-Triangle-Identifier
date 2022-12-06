@@ -67,11 +67,11 @@ public class AngleStructureComparator implements Comparator<Angle>
 			return STRUCTURALLY_INCOMPARABLE;
 		}
 		//return 1 if both rays for left are larger then those of right
-		if(left.getRay1().HasSubSegment(right.getRay1()) && left.getRay2().HasSubSegment(right.getRay2())) {
+		if(left.getRay1().hasSubSegment(right.getRay1()) && left.getRay2().hasSubSegment(right.getRay2())) {
 			return 1;
 		}
 		//return -1 if both rays for the right are larger then those of the left
-		if(right.getRay1().HasSubSegment(left.getRay1()) && right.getRay2().HasSubSegment(left.getRay2())) {
+		if(right.getRay1().hasSubSegment(left.getRay1()) && right.getRay2().hasSubSegment(left.getRay2())) {
 			return -1;
 		}
 		return 0;

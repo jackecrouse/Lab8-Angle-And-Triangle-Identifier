@@ -35,4 +35,9 @@ public class AngleEquivalenceClasses extends EquivalenceClasses<Angle>
 	{
 		super(new AngleStructureComparator());
 	}
+	
+	public boolean add(AngleLinkedEquivalenceClass angLEQ)
+	{
+		return _classes.add(angLEQ);
+	}
 }

@@ -71,6 +71,7 @@ public class AngleIdentifier
 	{
 		if(s1.equals(s2)) return false;
 		if(s1.hasSubSegment(s2) || s2.hasSubSegment(s1)) return false;
+		if(s1.coincideWithoutOverlap(s2) || s2.coincideWithoutOverlap(s1)) return false;
 		return true;
 	}
 	
