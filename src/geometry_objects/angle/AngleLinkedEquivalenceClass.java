@@ -33,6 +33,12 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		super(new AngleStructureComparator()); //CHECK
 	}
 
+	
+	/*
+	 * Adds an angle to the linked list or comparator. 
+	 * If the comparator is null it sets it to the angle, 
+	 * otherwise it is added to the list.
+	 */
 	@Override
 	public boolean add(Angle ang)
 	{
@@ -56,6 +62,8 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		return true;
 	}
 
+	
+	//removes the canonical element and sets it to the smallest angle
 	@Override
 	public boolean removeCanonical()
 	{
@@ -64,12 +72,14 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		return true;
 	}
 	
+	//removes an item from the linkedlist or canonical
 	public boolean remove(Angle target)
 	{
 		if(target.equals(_canonical)) return removeCanonical(); 
 		return _rest.remove(target);
 	}
 	
+	//returns the smallest angle in the linked list
 	private Angle getSmallestAngle()
 	{
 		if(_rest.isEmpty()) return null;
@@ -82,6 +92,7 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 		return smallest;
 	}
 
+	//checks to see if an angle conforms to the comparator
 	@Override 
 	public boolean belongs(Angle ang)
 	{
